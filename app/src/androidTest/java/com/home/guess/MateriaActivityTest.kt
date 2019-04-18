@@ -45,7 +45,7 @@ class MateriaActivityTest {
 
     @Test
     fun resetCount() {
-        val n = -1
+        val n = 101
         onView(withId(R.id.ed_number)).perform(typeText(n.toString()), closeSoftKeyboard())
         onView(withId(R.id.ok_button)).perform(click())
         onView(withText(R.string.ok)).perform(click())
