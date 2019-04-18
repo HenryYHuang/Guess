@@ -45,8 +45,6 @@ class MateriaActivityTest {
 
     @Test
     fun resetCount() {
-        val secret = activityTestRule.activity.secretNumber.secret
-        val resource = activityTestRule.activity.resources
         val n = -1
         onView(withId(R.id.ed_number)).perform(typeText(n.toString()), closeSoftKeyboard())
         onView(withId(R.id.ok_button)).perform(click())
@@ -54,7 +52,6 @@ class MateriaActivityTest {
         onView(withId(R.id.fab)).perform(click())
         onView(withText(R.string.ok)).perform(click())
         onView(withId(R.id.txt_counter)).check(matches(withText("0")))
-
     }
 
 }
