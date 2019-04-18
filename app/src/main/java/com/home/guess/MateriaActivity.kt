@@ -1,5 +1,7 @@
 package com.home.guess
 
+import android.content.Context
+import android.content.Intent
 import android.os.Bundle
 import android.util.Log
 import android.view.View
@@ -32,7 +34,11 @@ class MateriaActivity : AppCompatActivity() {
         }
         Log.d(TAG, "Number: ${secretNumber.secret}")
         txt_counter.text = secretNumber.count.toString()
-
+        val count = getSharedPreferences("guess", Context.MODE_PRIVATE)
+            .getInt("REC_COUNTER", -1)
+        val nickname = getSharedPreferences("guess", Context.MODE_PRIVATE)
+            .getString("REC_NICKNAME", null)
+        Log.d(TAG, "data:" +count + "/" + nickname )
     }
 
     fun check(view : View) {
@@ -54,7 +60,13 @@ class MateriaActivity : AppCompatActivity() {
             .setTitle(getString(R.string.dialog_title))
             .setMessage(message)
             .setPositiveButton(getString(R.string.ok), {dialog, which ->
-                ed_number.text.clear()
+                if (diff == 0) {
+                    val intent = Intent(this, RecordActivity::class.java)
+                    intent.putExtra("COUNTER", secretNumber.count)
+                    startActivity(intent)
+                } else {
+                    ed_number.text.clear()
+                }
             })
             .show()
     }
